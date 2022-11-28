@@ -1,5 +1,6 @@
-package com.homepage.home;
+package com.homepage.home.config;
 
+import com.homepage.home.HomeApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 

@@ -37,22 +37,33 @@ public abstract class MainRepositoryImpl<E> implements IMainRepository<E> {
 
 	@Transactional
 	@Override
-	public boolean save(E entity) {
+	public E save(E entity) {
 		EM.persist(entity);
-		return EM.contains(entity);
+		return entity;
 	}
 
 	@Override
 	public boolean delete(long id) {
 		Object obj = find(id);
-		EM.remove(obj);
+		try {
+			EM.remove(obj);
+		}catch (Exception ex){
+			ex.printStackTrace();
+		}
 
 		return true;
 	}
 
 	@Override
-	public boolean update(E entity) {
-		return false;
+	public E update(E entity) {
+		E updated=null;
+		if (!EM.contains(entity)){
+			throw new RuntimeException("update entity is currently detached");
+		}
+		else {
+			updated=EM.merge(entity);
+		}
+		return updated;
 	}
 
 	@Override

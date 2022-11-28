@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -15,7 +16,7 @@ public class AccountDto {
 	private Long id;
 	private String username;
 	private String password;
-	private List<RoleDto> authorityList;
+	private List<RoleDto> authorityList=new ArrayList<>();
 	private boolean isExpired;
 	private boolean isEnabled;
 

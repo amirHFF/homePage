@@ -7,7 +7,7 @@ public interface IMainRepository<E> {
     EntityManager getEntityManager();
     E find(long id);
     List<E> findAll();
-    boolean save(E entity);
+    E save(E entity);
     boolean delete(long id);
-    boolean update(E entity);
+    E update(E entity);
 }

@@ -39,16 +39,33 @@
         </div>
         <div class="register-show">
             <h2>REGISTER</h2>
-            <input type="text" placeholder="Email" id="user2">
+            <input type="text" placeholder="Email" id="user">
             <input type="password" placeholder="Password" id="pass">
             <input type="password" placeholder="Confirm Password">
-            <input type="button" value="Register" onclick="register(document.getElementById('user2'))">
+            <input type="button" value="Register" id="registerButton" onclick="register(document.getElementById('user2'))">
         </div>
     </div>
 </div>
 <script>
+    $('#registerButton').click(function () {
+
+    	$.ajax({
+            type:"POST",
+            url:"http://localhost:8080/accounts",
+            contentType:"application/json",
+            data:JSON.stringify({
+            	"username":$('#user').val(),
+                "password":$('#pass').val()
+            }),
+            success:function (data){alert(data)},
+            error:function (error){console.log(error)}
+        })
+	});
+
+
 	function register(x) {
-		$.post("localhost:8080/accounts",
+
+		$.post("http://localhost:8080/accounts",
 			{
 				"username": $('#user2').val(),
 				"password": $('#pass').val()

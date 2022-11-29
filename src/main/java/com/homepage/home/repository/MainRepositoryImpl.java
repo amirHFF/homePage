@@ -1,11 +1,13 @@
 package com.homepage.home.repository;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
+//import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -35,7 +37,6 @@ public abstract class MainRepositoryImpl<E> implements IMainRepository<E> {
 		return query.getResultList();
 	}
 
-	@Transactional
 	@Override
 	public E save(E entity) {
 		EM.persist(entity);

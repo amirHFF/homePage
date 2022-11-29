@@ -16,7 +16,7 @@ public class AccountRepositoryImpl extends MainRepositoryImpl<Account> implement
 
     @Override
     public Account findByUserName(String user) {
-        Query query=EM.createQuery("select e from Account e where e.userName =:user ");
+        Query query=EM.createQuery("select e from Account e where e.username =:user ");
         query.setParameter("user",user);
 
         return (Account) query.getSingleResult();

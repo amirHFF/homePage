@@ -43,12 +43,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/main/**","/").hasRole("USER")
                 .antMatchers("/anonymous*").anonymous()
                 .antMatchers("/login-form").permitAll()
-                .antMatchers("/accounts").permitAll()
+                .antMatchers("/accounts","/access-denial").permitAll()
                 .antMatchers("/accounts/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                .exceptionHandling().accessDeniedPage("/access-denied").and()
                 .formLogin().permitAll()
-                .loginPage("/login").defaultSuccessUrl("/")
+                .loginPage("/login").defaultSuccessUrl("/main")
                 .failureUrl("/login?error=true")
                 ;
     }

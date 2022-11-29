@@ -13,15 +13,13 @@ public class AccountUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private IAccountRepository accountRepository;
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public UserDetails loadUserByUsername(String user) throws UsernameNotFoundException {
 		UserDetails userDetails = accountRepository.findByUserName(user);
 		if (userDetails == null)
 			throw new RuntimeException("user does not exist");
-			return userDetails;
+		return userDetails;
 	}
 
 }

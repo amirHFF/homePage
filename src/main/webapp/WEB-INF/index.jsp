@@ -41,25 +41,34 @@
             <h2>REGISTER</h2>
             <input type="text" placeholder="Email" id="user">
             <input type="password" placeholder="Password" id="pass">
-            <input type="password" placeholder="Confirm Password">
-            <input type="button" value="Register" id="registerButton" onclick="register(document.getElementById('user2'))">
+            <input type="password" placeholder="Confirm Password" id="confirmPass" >
+            <input type="button" value="Register" id="registerButton" onclick="register()">
         </div>
     </div>
 </div>
 <script>
     $('#registerButton').click(function () {
+        if ($('#confirmPass').val()===$('#pass').val()) {
 
-    	$.ajax({
-            type:"POST",
-            url:"http://localhost:8080/accounts",
-            contentType:"application/json",
-            data:JSON.stringify({
-            	"username":$('#user').val(),
-                "password":$('#pass').val()
-            }),
-            success:function (data){alert(data)},
-            error:function (error){console.log(error)}
-        })
+			$.ajax({
+				type: "POST",
+				url: "http://localhost:8080/accounts",
+				contentType: "application/json",
+				data: JSON.stringify({
+					"username": $('#user').val(),
+					"password": $('#pass').val()
+				}),
+				success: function (data) {
+					console.log(JSON.stringify(data));
+					alert("user "+data+" is successfully registered");
+				},
+				error: function (error) {
+					console.log(error)
+				}
+			})
+		}else {
+        	alert('passwords does not match')
+        }
 	});
 
 

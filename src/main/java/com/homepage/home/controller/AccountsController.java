@@ -24,9 +24,9 @@ public class AccountsController {
 	}
 
 	@PostMapping
-	public ResponseEntity<AccountDto> saveAccount(@RequestBody AccountRequestDto requestDto) {
+	public ResponseEntity<String> saveAccount(@RequestBody AccountRequestDto requestDto) {
 		AccountDto savedAccount = service.save(new AccountDto(requestDto.getUsername(), requestDto.getPassword()));
-		return new ResponseEntity<>(savedAccount, HttpStatus.OK);
+		return new ResponseEntity<>(savedAccount.getUsername(), HttpStatus.OK);
 	}
 	@PostMapping(path = "/roles")
 	public ResponseEntity<RoleDto> helloWorld(@RequestBody RoleDto requestDto) {

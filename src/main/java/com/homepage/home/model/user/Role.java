@@ -9,7 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "HOME_PAGE_ROLE",schema = "HP_DB")
+@Table(name = "MY_HOME_PAGE_ROLE")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role extends SuperEntity implements GrantedAuthority {

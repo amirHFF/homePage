@@ -11,6 +11,10 @@ import javax.persistence.Query;
 @Repository
 public class AccountRepositoryImpl extends MainRepositoryImpl<Account> implements IAccountRepository {
 
+    public AccountRepositoryImpl() {
+        setClass(Account.class);
+    }
+
     @PersistenceContext
     private EntityManager EM;
 

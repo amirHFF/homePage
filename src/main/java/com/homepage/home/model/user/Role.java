@@ -7,12 +7,15 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.Objects;
 
 @Entity
-@Table(name = "MY_HOME_PAGE_ROLE")
+@Table(name = "HOME_PAGE_ROLE")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role extends SuperEntity implements GrantedAuthority {
+
     @Id
     @SequenceGenerator(sequenceName = "role_seq" , name = "role" , allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE ,generator = "role")
@@ -52,5 +55,26 @@ public class Role extends SuperEntity implements GrantedAuthority {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    @PrePersist
+    public void PrePersist(){
+        setInsertTime(new Date(System.currentTimeMillis()));
+        setInsertUser("amir");
+
+    }
+
+    @Override
+    public boolean equals(Object role) {
+        if (this == role) return true;
+        if (role == null || getClass() != role.getClass()) return false;
+        Role roleObj = (Role) role;
+        return id == roleObj.id &&
+                Objects.equals(authority, roleObj.authority);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, authority);
     }
 }

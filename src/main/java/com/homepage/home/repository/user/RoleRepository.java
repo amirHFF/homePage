@@ -15,7 +15,7 @@ public class RoleRepository extends MainRepositoryImpl<Role> implements IRoleRep
 	private EntityManager EM;
 	@Override
 	public List<Role> getRoleByUserName(String username) {
-		Query query=EM.createQuery("select e from Role e where e.account.userName = : username");
+		Query query=EM.createQuery("select e from Role e where e.account.username = : username");
 		query.setParameter("username",username);
 		return (List<Role>) query.getResultList();
 	}

@@ -4,6 +4,7 @@ import com.homepage.home.service.userAccount.AccountUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Collections;
 
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
 @Component
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -40,14 +42,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .configurationSource(corsConfigurationSource())
                 .and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/main/**","/").hasRole("USER")
-                .antMatchers("/anonymous*").anonymous()
+                .antMatchers("/main","/").hasRole("USER")
                 .antMatchers("/login-form").permitAll()
-                .antMatchers("/accounts","/access-denial").permitAll()
+                .antMatchers("/accounts","/access-denial","/userSetting").permitAll()
                 .antMatchers("/accounts/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .exceptionHandling().accessDeniedPage("/access-denied").and()
+                .exceptionHandling().accessDeniedPage("/access-denial").and()
                 .formLogin().permitAll()
                 .loginPage("/login").defaultSuccessUrl("/main")
                 .failureUrl("/login?error=true")

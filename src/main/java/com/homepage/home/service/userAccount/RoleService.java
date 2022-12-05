@@ -12,9 +12,11 @@ import java.util.List;
 public class RoleService implements IRoleService {
 
 	private IRoleRepository repository;
+	private RoleMapper roleMapper;
 
-	public RoleService(IRoleRepository repository) {
+	public RoleService(RoleMapper roleMapper,IRoleRepository repository) {
 		this.repository = repository;
+		this.roleMapper = roleMapper;
 	}
 
 	@Override
@@ -30,17 +32,17 @@ public class RoleService implements IRoleService {
 
 	@Override
 	public RoleDto save(RoleDto dto) {
-		Role role =repository.save(RoleMapper.getInstance.dtoToEntity(dto));
-		return RoleMapper.getInstance.entityToDto(role);
+		Role role =repository.save(roleMapper.dtoToEntity(dto));
+		return roleMapper.entityToDto(role);
 	}
 
 	@Override
-	public RoleDto update(long id, RoleDto dto) {
-		Role role =repository.find(id);
+	public RoleDto update(Object id, RoleDto dto) {
+		Role role =repository.find((Long) id);
 		if (role !=null) {
-			Role updatedRole = repository.update(RoleMapper.getInstance.dtoToEntity(dto));
+			Role updatedRole = repository.update(roleMapper.dtoToEntity(dto));
 		}
-		return RoleMapper.getInstance.entityToDto(role);
+		return roleMapper.entityToDto(role);
 	}
 
 	@Override

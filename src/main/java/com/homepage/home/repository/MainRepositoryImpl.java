@@ -37,6 +37,7 @@ public abstract class MainRepositoryImpl<E> implements IMainRepository<E> {
 		return query.getResultList();
 	}
 
+	@Transactional
 	@Override
 	public E save(E entity) {
 		EM.persist(entity);
@@ -55,6 +56,7 @@ public abstract class MainRepositoryImpl<E> implements IMainRepository<E> {
 		return true;
 	}
 
+	@Transactional
 	@Override
 	public E update(E entity) {
 		E updated=null;

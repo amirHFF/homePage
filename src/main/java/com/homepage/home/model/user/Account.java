@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "MY_HOME_PAGE_ACCOUNT")
+@Table(name = "HOME_PAGE_ACCOUNT")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Account extends SuperEntity implements UserDetails {
@@ -20,11 +20,11 @@ public class Account extends SuperEntity implements UserDetails {
 	@SequenceGenerator(name = "AccountSeq", sequenceName = "ACCOUNT_SEQ", allocationSize = 1)
 	@GeneratedValue(generator = "AccountSeq", strategy = GenerationType.SEQUENCE)
 	private Long id;
-	@Column(length = 25, nullable = false)
+	@Column(length = 25, nullable = false,unique = true)
 	private String username;
 	@Column(nullable = false)
 	private String password;
-	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE, CascadeType.PERSIST }, mappedBy = "account")
+	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL}, mappedBy = "account")
 	private List<Role> authorityList = new ArrayList<>();
 	@Column(length = 1)
 	private boolean isExpired;
@@ -48,12 +48,12 @@ public class Account extends SuperEntity implements UserDetails {
 
 	@Override
 	public boolean isAccountNonExpired() {
-		return this.isExpired;
+		return !this.isExpired;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return isExpired && isEnabled;
+		return !isExpired && isEnabled;
 	}
 
 	@Override
@@ -76,6 +76,10 @@ public class Account extends SuperEntity implements UserDetails {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public boolean isExpired() {
+		return isExpired;
 	}
 
 	@PrePersist

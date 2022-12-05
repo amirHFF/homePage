@@ -72,17 +72,6 @@
 	});
 
 
-	function register(x) {
-
-		$.post("http://localhost:8080/accounts",
-			{
-				"username": $('#user2').val(),
-				"password": $('#pass').val()
-			}, function (data) {
-				alert(data)
-			},
-		);
-	}
 </script>
 </body>
 </html>
